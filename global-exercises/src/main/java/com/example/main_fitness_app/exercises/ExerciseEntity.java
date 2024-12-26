@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-public class ExerciseEntity {
+class ExerciseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,7 +15,7 @@ public class ExerciseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    public ExerciseEntity(String name) {
+    ExerciseEntity(String name) {
         this.name = name;
     }
 

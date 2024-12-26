@@ -40,4 +40,9 @@ class InMemoryExerciseRepository implements ExerciseRepository {
                 .filter(entity -> entity.getName().toLowerCase().contains(partialName.toLowerCase()))
                 .collect(Collectors.toSet());
     }
+
+    @Override
+    public Set<ExerciseEntity> findAll() {
+        return new HashSet<>(database.values());
+    }
 }

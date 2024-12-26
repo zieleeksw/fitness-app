@@ -12,19 +12,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ExerciseFacadeTest {
 
-    private ExerciseFacade exerciseFacade;
+    private ExerciseFacade facade;
 
     @BeforeEach
     void setup() {
-        InMemoryExerciseRepository inMemoryRepository = new InMemoryExerciseRepository();
-        exerciseFacade = new ExerciseFacade(inMemoryRepository);
+        ExerciseConfiguration configuration = new ExerciseConfiguration();
+        facade = configuration.exerciseFacade();
     }
 
     @Test
     void shouldAddNewExercise() {
         ExerciseCandidate candidate = new ExerciseCandidate("Push-up");
 
-        ExerciseResponse response = exerciseFacade.add(candidate);
+        ExerciseResponse response = facade.add(candidate);
 
         assertNotNull(response);
         assertEquals("Push-up", response.name());
@@ -34,37 +34,37 @@ class ExerciseFacadeTest {
     @Test
     void shouldThrowExceptionWhenExerciseAlreadyExists() {
         ExerciseCandidate candidate = new ExerciseCandidate("Push-up");
-        exerciseFacade.add(candidate);
+        facade.add(candidate);
 
-        assertThrows(ExerciseException.class, () -> exerciseFacade.add(candidate));
+        assertThrows(ExerciseException.class, () -> facade.add(candidate));
     }
 
 
     @Test
     void shouldDeleteExercise() {
         ExerciseCandidate candidate = new ExerciseCandidate("Squat");
-        ExerciseResponse response = exerciseFacade.add(candidate);
+        ExerciseResponse response = facade.add(candidate);
         UUID exerciseId = response.id();
 
-        exerciseFacade.deleteById(exerciseId);
+        facade.deleteById(exerciseId);
 
-        assertThrows(ExerciseException.class, () -> exerciseFacade.deleteById(exerciseId));
+        assertThrows(ExerciseException.class, () -> facade.deleteById(exerciseId));
     }
 
     @Test
     void shouldThrowExceptionWhenDeletingNonExistingExercise() {
         UUID exerciseId = UUID.randomUUID();
 
-        assertThrows(ExerciseException.class, () -> exerciseFacade.deleteById(exerciseId));
+        assertThrows(ExerciseException.class, () -> facade.deleteById(exerciseId));
     }
 
     @Test
     void shouldFindExerciseByNameContaining() {
-        exerciseFacade.add(new ExerciseCandidate("Push-up"));
-        exerciseFacade.add(new ExerciseCandidate("Pull-up"));
-        exerciseFacade.add(new ExerciseCandidate("Squat"));
+        facade.add(new ExerciseCandidate("Push-up"));
+        facade.add(new ExerciseCandidate("Pull-up"));
+        facade.add(new ExerciseCandidate("Squat"));
 
-        Set<ExerciseResponse> results = exerciseFacade.findByNameContaining("up");
+        Set<ExerciseResponse> results = facade.findByNameContaining("up");
 
         assertEquals(2, results.size());
         assertTrue(results.stream().anyMatch(ex -> ex.name().equals("Push-up")));
@@ -74,21 +74,48 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldReturnEmptyListWhenNoExercisesMatch() {
-        exerciseFacade.add(new ExerciseCandidate("Push-up"));
-        exerciseFacade.add(new ExerciseCandidate("Pull-up"));
+        facade.add(new ExerciseCandidate("Push-up"));
+        facade.add(new ExerciseCandidate("Pull-up"));
 
-        Set<ExerciseResponse> results = exerciseFacade.findByNameContaining("Squat");
+        Set<ExerciseResponse> results = facade.findByNameContaining("Squat");
 
         assertTrue(results.isEmpty());
     }
 
     @Test
     void shouldFindExerciseByNameContainingCaseInsensitive() {
-        exerciseFacade.add(new ExerciseCandidate("Push-up"));
+        facade.add(new ExerciseCandidate("Push-up"));
 
-        Set<ExerciseResponse> results = exerciseFacade.findByNameContaining("push");
+        Set<ExerciseResponse> results = facade.findByNameContaining("push");
 
         assertEquals(1, results.size());
         assertTrue(results.stream().anyMatch(ex -> ex.name().equals("Push-up")));
+    }
+
+    @Test
+    void shouldFindAllExercises() {
+        facade.add(new ExerciseCandidate("Push-up"));
+
+        Set<ExerciseResponse> results = facade.findAll();
+
+        assertEquals(1, results.size());
+        assertTrue(results.stream().anyMatch(ex -> ex.name().equals("Push-up")));
+    }
+
+    @Test
+    void shouldFindRandomExercise() {
+        facade.add(new ExerciseCandidate("Push-up"));
+        facade.add(new ExerciseCandidate("Pull-up"));
+        facade.add(new ExerciseCandidate("Squat"));
+
+        ExerciseResponse randomExercise = facade.findRandomExercise();
+
+        assertNotNull(randomExercise);
+        assertTrue(Set.of("Push-up", "Pull-up", "Squat").contains(randomExercise.name()));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenNoExercisesAvailable() {
+        assertThrows(ExerciseException.class, () -> facade.findRandomExercise());
     }
 }

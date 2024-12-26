@@ -3,8 +3,7 @@ package com.example.main_fitness_app.exercises;
 import com.example.main_fitness_app.exercises.dto.ExerciseCandidate;
 import com.example.main_fitness_app.exercises.dto.ExerciseResponse;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 class ExerciseFacade {
@@ -35,5 +34,25 @@ class ExerciseFacade {
         return repository.findByNameContaining(partialName).stream()
                 .map(ExerciseEntity::toDto)
                 .collect(Collectors.toSet());
+    }
+
+    Set<ExerciseResponse> findAll() {
+        return repository.findAll().stream()
+                .map(ExerciseEntity::toDto)
+                .collect(Collectors.toSet());
+    }
+
+    ExerciseResponse findRandomExercise() {
+        List<ExerciseEntity> exercises = new ArrayList<>(repository.findAll());
+        if (exercises.isEmpty()) {
+            throw new ExerciseException("Something went wrong. Cannot find any exercises");
+        }
+
+        Random random = new Random();
+        int exercisesSize = exercises.size();
+        int randomIndex = random.nextInt(exercisesSize);
+        return exercises
+                .get(randomIndex)
+                .toDto();
     }
 }

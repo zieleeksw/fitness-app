@@ -20,4 +20,5 @@ interface ExerciseRepository extends Repository<ExerciseEntity, UUID> {
     @Query("SELECT e FROM ExerciseEntity e WHERE LOWER(e.name) LIKE LOWER(CONCAT('%', :partialName, '%'))")
     Set<ExerciseEntity> findByNameContaining(String partialName);
 
+    Set<ExerciseEntity> findAll();
 }
