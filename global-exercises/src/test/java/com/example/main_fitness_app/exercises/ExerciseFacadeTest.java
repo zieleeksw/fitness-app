@@ -1,8 +1,5 @@
-package com.example.main_fitness_app;
+package com.example.main_fitness_app.exercises;
 
-import com.example.main_fitness_app.exercises.ExerciseException;
-import com.example.main_fitness_app.exercises.ExerciseFacade;
-import com.example.main_fitness_app.exercises.InMemoryExerciseRepository;
 import com.example.main_fitness_app.exercises.dto.ExerciseCandidate;
 import com.example.main_fitness_app.exercises.dto.ExerciseResponse;
 import org.junit.jupiter.api.BeforeEach;
