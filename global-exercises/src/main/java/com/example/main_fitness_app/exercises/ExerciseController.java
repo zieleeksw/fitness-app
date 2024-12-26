@@ -36,7 +36,7 @@ class ExerciseController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
+    @GetMapping("/search")
     ResponseEntity<Set<ExerciseResponse>> findByNameContaining(
             @RequestParam @NotBlank @Size(max = 10) String name) {
         Set<ExerciseResponse> exercises = facade.findByNameContaining(name);

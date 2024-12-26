@@ -17,8 +17,10 @@ interface ExerciseRepository extends Repository<ExerciseEntity, UUID> {
 
     void deleteById(UUID id);
 
-    @Query("SELECT e FROM ExerciseEntity e WHERE LOWER(e.name) LIKE LOWER(CONCAT('%', :partialName, '%'))")
+    @Query("SELECT e FROM exercises e WHERE LOWER(e.name) LIKE LOWER(CONCAT('%', :partialName, '%'))")
     Set<ExerciseEntity> findByNameContaining(String partialName);
 
     Set<ExerciseEntity> findAll();
+
+    Integer count();
 }

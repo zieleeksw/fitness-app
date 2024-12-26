@@ -45,4 +45,9 @@ class InMemoryExerciseRepository implements ExerciseRepository {
     public Set<ExerciseEntity> findAll() {
         return new HashSet<>(database.values());
     }
+
+    @Override
+    public Integer count() {
+        return database.size();
+    }
 }
