@@ -55,4 +55,10 @@ class ExerciseController {
         ExerciseResponse random = facade.findRandomExercise();
         return ResponseEntity.ok(random);
     }
+
+    @GetMapping("difficulty-levels")
+    ResponseEntity<Set<String>> findDifficultyLevels() {
+        Set<String> difficultyLevels = facade.findDifficultyLevels();
+        return ResponseEntity.ok(difficultyLevels);
+    }
 }

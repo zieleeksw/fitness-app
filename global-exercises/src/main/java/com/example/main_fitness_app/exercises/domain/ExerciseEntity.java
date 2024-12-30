@@ -41,12 +41,12 @@ class ExerciseEntity {
         );
     }
 
-    void setId(UUID id) {
-        this.id = id;
-    }
-
     UUID getId() {
         return this.id;
+    }
+
+    void setId(UUID id) {
+        this.id = id;
     }
 
     String getName() {

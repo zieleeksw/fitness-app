@@ -55,4 +55,10 @@ public class ExerciseFacade {
                 .get(randomIndex)
                 .toDto();
     }
+
+    public Set<String> findDifficultyLevels() {
+        return EnumSet.allOf(DifficultyLevel.class).stream()
+                .map(Enum::toString)
+                .collect(Collectors.toSet());
+    }
 }
