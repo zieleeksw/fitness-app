@@ -56,9 +56,22 @@ class ExerciseController {
         return ResponseEntity.ok(random);
     }
 
+    // TODO: Repair the path and method name in facade and add a test for this one.
     @GetMapping("difficulty-levels")
     ResponseEntity<Set<String>> findDifficultyLevels() {
         Set<String> difficultyLevels = facade.findDifficultyLevels();
+        return ResponseEntity.ok(difficultyLevels);
+    }
+
+    @GetMapping("/muscles")
+    ResponseEntity<Set<String>> findAvailableMuscles() {
+        Set<String> difficultyLevels = facade.findAvailableMuscles();
+        return ResponseEntity.ok(difficultyLevels);
+    }
+
+    @GetMapping("/intensities")
+    ResponseEntity<Set<String>> findAvailableIntensities() {
+        Set<String> difficultyLevels = facade.findAvailableIntensities();
         return ResponseEntity.ok(difficultyLevels);
     }
 }

@@ -61,4 +61,16 @@ public class ExerciseFacade {
                 .map(Enum::toString)
                 .collect(Collectors.toSet());
     }
+
+    public Set<String> findAvailableMuscles() {
+        return EnumSet.allOf(Muscle.class).stream()
+                .map(Enum::toString)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<String> findAvailableIntensities() {
+        return EnumSet.allOf(Intensity.class).stream()
+                .map(Enum::toString)
+                .collect(Collectors.toSet());
+    }
 }
