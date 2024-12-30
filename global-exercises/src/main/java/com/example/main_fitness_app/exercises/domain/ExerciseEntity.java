@@ -16,13 +16,17 @@ class ExerciseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(nullable = false)
+    private String instruction;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private DifficultyLevel difficultyLevel;
 
-    ExerciseEntity(String name, DifficultyLevel difficultyLevel) {
+    ExerciseEntity(String name, String instruction, DifficultyLevel difficultyLevel) {
         this.name = name;
         this.difficultyLevel = difficultyLevel;
+        this.instruction = instruction;
     }
 
     protected ExerciseEntity() {
@@ -31,6 +35,7 @@ class ExerciseEntity {
     static ExerciseEntity from(ExerciseCandidate candidate) {
         return new ExerciseEntity(
                 candidate.name(),
+                candidate.instruction(),
                 DifficultyLevel.valueOf(candidate.difficultyLevel()
                 )
         );
@@ -48,6 +53,10 @@ class ExerciseEntity {
         return this.name;
     }
 
+    String getInstruction() {
+        return this.instruction;
+    }
+
     DifficultyLevel getDifficultyLevel() {
         return this.difficultyLevel;
     }
@@ -56,6 +65,7 @@ class ExerciseEntity {
         return new ExerciseResponse(
                 this.id,
                 this.name,
+                this.instruction,
                 this.difficultyLevel.name()
         );
     }

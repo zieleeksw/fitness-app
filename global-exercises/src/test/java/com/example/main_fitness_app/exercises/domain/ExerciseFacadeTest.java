@@ -15,7 +15,7 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldAddNewExercise() {
-        ExerciseCandidate candidate = new ExerciseCandidate("Push-up", "BEGINNER");
+        ExerciseCandidate candidate = new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER");
 
         ExerciseResponse response = facade.add(candidate);
 
@@ -23,11 +23,13 @@ class ExerciseFacadeTest {
         assertNotNull(response.id());
         assertEquals("Push-up", response.name());
         assertEquals(DifficultyLevel.BEGINNER, DifficultyLevel.valueOf(response.difficultyLevel()));
+        assertEquals("Basic push-up instructions", response.instruction());
     }
 
     @Test
     void shouldThrowExceptionWhenExerciseAlreadyExists() {
-        ExerciseCandidate candidate = new ExerciseCandidate("Push-up", "BEGINNER");
+        ExerciseCandidate candidate = new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER");
+
         facade.add(candidate);
 
         assertThrows(ExerciseException.class, () -> facade.add(candidate));
@@ -36,7 +38,7 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldDeleteExercise() {
-        ExerciseCandidate candidate = new ExerciseCandidate("Squat", "ADVANCED");
+        ExerciseCandidate candidate = new ExerciseCandidate("Squat", "Perform a proper squat", "ADVANCED");
         ExerciseResponse response = facade.add(candidate);
         UUID exerciseId = response.id();
 
@@ -54,9 +56,9 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldFindExerciseByNameContaining() {
-        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
-        facade.add(new ExerciseCandidate("Pull-up", "INTERMEDIATE"));
-        facade.add(new ExerciseCandidate("Squat", "ADVANCED"));
+        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER"));
+        facade.add(new ExerciseCandidate("Pull-up", "Perform a pull-up", "INTERMEDIATE"));
+        facade.add(new ExerciseCandidate("Squat", "Perform a proper squat", "ADVANCED"));
 
         Set<ExerciseResponse> results = facade.findByNameContaining("up");
 
@@ -68,8 +70,8 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldReturnEmptyListWhenNoExercisesMatch() {
-        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
-        facade.add(new ExerciseCandidate("Pull-up", "INTERMEDIATE"));
+        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER"));
+        facade.add(new ExerciseCandidate("Pull-up", "Perform a pull-up", "INTERMEDIATE"));
 
         Set<ExerciseResponse> results = facade.findByNameContaining("Squat");
 
@@ -78,7 +80,7 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldFindExerciseByNameContainingCaseInsensitive() {
-        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
+        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER"));
 
         Set<ExerciseResponse> results = facade.findByNameContaining("push");
 
@@ -88,7 +90,7 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldFindAllExercises() {
-        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
+        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER"));
 
         Set<ExerciseResponse> results = facade.findAll();
 
@@ -98,9 +100,9 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldFindRandomExercise() {
-        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
-        facade.add(new ExerciseCandidate("Pull-up", "INTERMEDIATE"));
-        facade.add(new ExerciseCandidate("Squat", "ADVANCED"));
+        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER"));
+        facade.add(new ExerciseCandidate("Pull-up", "Perform a pull-up", "INTERMEDIATE"));
+        facade.add(new ExerciseCandidate("Squat", "Perform a proper squat", "ADVANCED"));
 
         ExerciseResponse randomExercise = facade.findRandomExercise();
 
@@ -115,7 +117,7 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldThrowExceptionWhenAddingExerciseWithInvalidDifficultyLevel() {
-        ExerciseCandidate candidate = new ExerciseCandidate("Push-up", "RANDOM");
+        ExerciseCandidate candidate = new ExerciseCandidate("Push-up", "Instruction missing", "RANDOM");
 
         assertThrows(IllegalArgumentException.class, () -> facade.add(candidate));
     }
