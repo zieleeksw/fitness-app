@@ -19,7 +19,7 @@ public class ExerciseFacade {
             throw new ExerciseException("Exercise already exists");
         }
 
-        ExerciseEntity entity = new ExerciseEntity(candidate.name());
+        ExerciseEntity entity = ExerciseEntity.from(candidate);
         ExerciseEntity savedEntity = repository.save(entity);
         return savedEntity.toDto();
     }

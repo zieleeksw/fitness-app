@@ -10,10 +10,10 @@ class ExercisesInitializer {
 
     void init() {
         if (repository.count() == 0) {
-            repository.save(new ExerciseEntity("Push-up"));
-            repository.save(new ExerciseEntity("Pull-up"));
-            repository.save(new ExerciseEntity("Squat"));
-            repository.save(new ExerciseEntity("Leg extension"));
+            repository.save(new ExerciseEntity("Push-up", DifficultyLevel.BEGINNER));
+            repository.save(new ExerciseEntity("Pull-up", DifficultyLevel.INTERMEDIATE));
+            repository.save(new ExerciseEntity("Squat", DifficultyLevel.ADVANCED));
+            repository.save(new ExerciseEntity("Leg extension", DifficultyLevel.INTERMEDIATE));
         }
     }
 }

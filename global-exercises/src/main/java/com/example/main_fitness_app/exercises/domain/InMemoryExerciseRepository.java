@@ -17,7 +17,7 @@ class InMemoryExerciseRepository implements ExerciseRepository {
     @Override
     public ExerciseEntity save(ExerciseEntity entity) {
         UUID id = entity.getId() != null ? entity.getId() : UUID.randomUUID();
-        ExerciseEntity savedEntity = new ExerciseEntity(entity.getName());
+        ExerciseEntity savedEntity = new ExerciseEntity(entity.getName(), entity.getDifficultyLevel());
         savedEntity.setId(id);
         database.put(id, savedEntity);
         return savedEntity;

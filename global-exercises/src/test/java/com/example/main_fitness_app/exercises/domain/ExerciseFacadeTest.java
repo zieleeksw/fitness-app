@@ -15,18 +15,19 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldAddNewExercise() {
-        ExerciseCandidate candidate = new ExerciseCandidate("Push-up");
+        ExerciseCandidate candidate = new ExerciseCandidate("Push-up", "BEGINNER");
 
         ExerciseResponse response = facade.add(candidate);
 
         assertNotNull(response);
-        assertEquals("Push-up", response.name());
         assertNotNull(response.id());
+        assertEquals("Push-up", response.name());
+        assertEquals(DifficultyLevel.BEGINNER, DifficultyLevel.valueOf(response.difficultyLevel()));
     }
 
     @Test
     void shouldThrowExceptionWhenExerciseAlreadyExists() {
-        ExerciseCandidate candidate = new ExerciseCandidate("Push-up");
+        ExerciseCandidate candidate = new ExerciseCandidate("Push-up", "BEGINNER");
         facade.add(candidate);
 
         assertThrows(ExerciseException.class, () -> facade.add(candidate));
@@ -35,13 +36,13 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldDeleteExercise() {
-        ExerciseCandidate candidate = new ExerciseCandidate("Squat");
+        ExerciseCandidate candidate = new ExerciseCandidate("Squat", "ADVANCED");
         ExerciseResponse response = facade.add(candidate);
         UUID exerciseId = response.id();
 
         facade.deleteById(exerciseId);
 
-        assertEquals(true, facade.findAll().isEmpty());
+        assertTrue(facade.findAll().isEmpty());
     }
 
     @Test
@@ -53,9 +54,9 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldFindExerciseByNameContaining() {
-        facade.add(new ExerciseCandidate("Push-up"));
-        facade.add(new ExerciseCandidate("Pull-up"));
-        facade.add(new ExerciseCandidate("Squat"));
+        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
+        facade.add(new ExerciseCandidate("Pull-up", "INTERMEDIATE"));
+        facade.add(new ExerciseCandidate("Squat", "ADVANCED"));
 
         Set<ExerciseResponse> results = facade.findByNameContaining("up");
 
@@ -67,8 +68,8 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldReturnEmptyListWhenNoExercisesMatch() {
-        facade.add(new ExerciseCandidate("Push-up"));
-        facade.add(new ExerciseCandidate("Pull-up"));
+        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
+        facade.add(new ExerciseCandidate("Pull-up", "INTERMEDIATE"));
 
         Set<ExerciseResponse> results = facade.findByNameContaining("Squat");
 
@@ -77,7 +78,7 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldFindExerciseByNameContainingCaseInsensitive() {
-        facade.add(new ExerciseCandidate("Push-up"));
+        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
 
         Set<ExerciseResponse> results = facade.findByNameContaining("push");
 
@@ -87,7 +88,7 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldFindAllExercises() {
-        facade.add(new ExerciseCandidate("Push-up"));
+        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
 
         Set<ExerciseResponse> results = facade.findAll();
 
@@ -97,9 +98,9 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldFindRandomExercise() {
-        facade.add(new ExerciseCandidate("Push-up"));
-        facade.add(new ExerciseCandidate("Pull-up"));
-        facade.add(new ExerciseCandidate("Squat"));
+        facade.add(new ExerciseCandidate("Push-up", "BEGINNER"));
+        facade.add(new ExerciseCandidate("Pull-up", "INTERMEDIATE"));
+        facade.add(new ExerciseCandidate("Squat", "ADVANCED"));
 
         ExerciseResponse randomExercise = facade.findRandomExercise();
 
@@ -109,6 +110,13 @@ class ExerciseFacadeTest {
 
     @Test
     void shouldThrowExceptionWhenNoExercisesAvailable() {
-        assertThrows(ExerciseException.class, () -> facade.findRandomExercise());
+        assertThrows(ExerciseException.class, facade::findRandomExercise);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenAddingExerciseWithInvalidDifficultyLevel() {
+        ExerciseCandidate candidate = new ExerciseCandidate("Push-up", "RANDOM");
+
+        assertThrows(IllegalArgumentException.class, () -> facade.add(candidate));
     }
 }

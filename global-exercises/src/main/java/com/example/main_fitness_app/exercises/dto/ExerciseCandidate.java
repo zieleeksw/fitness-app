@@ -4,10 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record ExerciseCandidate(
-        @NotBlank @Size(max = 100) String name
+        @NotBlank @Size(max = 100) String name,
+        @NotBlank String difficultyLevel
 ) {
 
-    public ExerciseCandidate(String name) {
-        this.name = name;
-    }
 }
