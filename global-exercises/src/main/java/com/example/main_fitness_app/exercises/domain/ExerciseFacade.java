@@ -56,7 +56,7 @@ public class ExerciseFacade {
                 .toDto();
     }
 
-    public Set<String> findDifficultyLevels() {
+    public Set<String> findAvailableDifficultyLevels() {
         return EnumSet.allOf(DifficultyLevel.class).stream()
                 .map(Enum::toString)
                 .collect(Collectors.toSet());

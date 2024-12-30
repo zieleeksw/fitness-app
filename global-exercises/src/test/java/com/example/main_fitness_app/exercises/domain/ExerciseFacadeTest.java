@@ -211,6 +211,16 @@ class ExerciseFacadeTest {
     }
 
     @Test
+    void shouldReturnAllAvailableDifficultyLevels() {
+        Set<String> availableIntensities = facade.findAvailableDifficultyLevels();
+
+        assertEquals(EnumSet.allOf(DifficultyLevel.class).size(), availableIntensities.size());
+        assertTrue(availableIntensities.contains("BEGINNER"));
+        assertTrue(availableIntensities.contains("INTERMEDIATE"));
+        assertTrue(availableIntensities.contains("ADVANCED"));
+    }
+
+    @Test
     void shouldReturnAllAvailableMuscles() {
         Set<String> availableMuscles = facade.findAvailableMuscles();
 
