@@ -1,8 +1,7 @@
-package com.example.main_fitness_app.exercises;
+package com.example.main_fitness_app.exercises.domain;
 
 import com.example.main_fitness_app.exercises.dto.ExerciseCandidate;
 import com.example.main_fitness_app.exercises.dto.ExerciseResponse;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
@@ -12,13 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ExerciseFacadeTest {
 
-    private ExerciseFacade facade;
-
-    @BeforeEach
-    void setup() {
-        ExerciseConfiguration configuration = new ExerciseConfiguration();
-        facade = configuration.exerciseFacade();
-    }
+    private final ExerciseFacade facade = new ExerciseConfiguration().exerciseFacade();
 
     @Test
     void shouldAddNewExercise() {
@@ -48,7 +41,7 @@ class ExerciseFacadeTest {
 
         facade.deleteById(exerciseId);
 
-        assertThrows(ExerciseException.class, () -> facade.deleteById(exerciseId));
+        assertEquals(true, facade.findAll().isEmpty());
     }
 
     @Test

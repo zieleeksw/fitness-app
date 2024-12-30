@@ -1,4 +1,4 @@
-package com.example.main_fitness_app.exercises;
+package com.example.main_fitness_app.exercises.domain;
 
 import com.example.main_fitness_app.exercises.dto.ExerciseCandidate;
 import com.example.main_fitness_app.exercises.dto.ExerciseResponse;
@@ -6,15 +6,15 @@ import com.example.main_fitness_app.exercises.dto.ExerciseResponse;
 import java.util.*;
 import java.util.stream.Collectors;
 
-class ExerciseFacade {
+public class ExerciseFacade {
 
     private final ExerciseRepository repository;
 
-    ExerciseFacade(ExerciseRepository repository) {
+    public ExerciseFacade(ExerciseRepository repository) {
         this.repository = repository;
     }
 
-    ExerciseResponse add(ExerciseCandidate candidate) {
+    public ExerciseResponse add(ExerciseCandidate candidate) {
         if (repository.findByName(candidate.name()).isPresent()) {
             throw new ExerciseException("Exercise already exists");
         }
@@ -24,25 +24,25 @@ class ExerciseFacade {
         return savedEntity.toDto();
     }
 
-    void deleteById(UUID id) {
+    public void deleteById(UUID id) {
         repository.findById(id)
                 .orElseThrow(() -> new ExerciseException("Cannot find exercise with id: " + id));
         repository.deleteById(id);
     }
 
-    Set<ExerciseResponse> findByNameContaining(String partialName) {
+    public Set<ExerciseResponse> findByNameContaining(String partialName) {
         return repository.findByNameContaining(partialName).stream()
                 .map(ExerciseEntity::toDto)
                 .collect(Collectors.toSet());
     }
 
-    Set<ExerciseResponse> findAll() {
+    public Set<ExerciseResponse> findAll() {
         return repository.findAll().stream()
                 .map(ExerciseEntity::toDto)
                 .collect(Collectors.toSet());
     }
 
-    ExerciseResponse findRandomExercise() {
+    public ExerciseResponse findRandomExercise() {
         List<ExerciseEntity> exercises = new ArrayList<>(repository.findAll());
         if (exercises.isEmpty()) {
             throw new ExerciseException("Something went wrong. Cannot find any exercises");

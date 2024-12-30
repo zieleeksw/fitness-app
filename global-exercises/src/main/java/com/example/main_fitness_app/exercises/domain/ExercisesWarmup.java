@@ -1,4 +1,4 @@
-package com.example.main_fitness_app.exercises;
+package com.example.main_fitness_app.exercises.domain;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationListener;

@@ -1,4 +1,4 @@
-package com.example.main_fitness_app.exercises;
+package com.example.main_fitness_app.exercises.domain;
 
 class ExercisesInitializer {
 

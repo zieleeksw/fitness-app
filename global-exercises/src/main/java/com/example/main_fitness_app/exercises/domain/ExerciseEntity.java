@@ -1,4 +1,4 @@
-package com.example.main_fitness_app.exercises;
+package com.example.main_fitness_app.exercises.domain;
 
 import com.example.main_fitness_app.exercises.dto.ExerciseResponse;
 import jakarta.persistence.*;
@@ -9,7 +9,7 @@ import java.util.UUID;
 class ExerciseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false, unique = true)

@@ -1,6 +1,7 @@
 package com.example.main_fitness_app.exercises;
 
 
+import com.example.main_fitness_app.exercises.domain.ExerciseFacade;
 import com.example.main_fitness_app.exercises.dto.ExerciseCandidate;
 import com.example.main_fitness_app.exercises.dto.ExerciseResponse;
 import jakarta.validation.Valid;
