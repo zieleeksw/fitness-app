@@ -10,8 +10,7 @@ class ExercisesWarmup implements ApplicationListener<ContextRefreshedEvent> {
 
     private final ExercisesInitializer initializer;
 
-    ExercisesWarmup(
-            @Qualifier("exerciseRepository") ExerciseRepository repository) {
+    ExercisesWarmup(@Qualifier("exerciseRepository") ExerciseRepository repository) {
         this.initializer = new ExercisesInitializer(repository);
     }
 

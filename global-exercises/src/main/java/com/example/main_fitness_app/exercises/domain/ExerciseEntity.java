@@ -82,7 +82,7 @@ class ExerciseEntity {
         return Collections.unmodifiableSet(this.muscleUsages);
     }
 
-    ExerciseResponse toDto() {
+    ExerciseResponse response() {
         Set<MuscleUsageDto> muscleUsageDto = this.muscleUsages.stream()
                 .map(mu -> new MuscleUsageDto(mu.getMuscle().toString(), mu.getIntensity().toString()))
                 .collect(Collectors.toSet());

@@ -21,7 +21,7 @@ public class ExerciseFacade {
 
         ExerciseEntity entity = ExerciseEntity.from(candidate);
         ExerciseEntity savedEntity = repository.save(entity);
-        return savedEntity.toDto();
+        return savedEntity.response();
     }
 
     public void deleteById(UUID id) {
@@ -32,13 +32,13 @@ public class ExerciseFacade {
 
     public Set<ExerciseResponse> findByNameContaining(String partialName) {
         return repository.findByNameContaining(partialName).stream()
-                .map(ExerciseEntity::toDto)
+                .map(ExerciseEntity::response)
                 .collect(Collectors.toSet());
     }
 
     public Set<ExerciseResponse> findAll() {
         return repository.findAll().stream()
-                .map(ExerciseEntity::toDto)
+                .map(ExerciseEntity::response)
                 .collect(Collectors.toSet());
     }
 
@@ -53,7 +53,7 @@ public class ExerciseFacade {
         int randomIndex = random.nextInt(exercisesSize);
         return exercises
                 .get(randomIndex)
-                .toDto();
+                .response();
     }
 
     public Set<String> findAvailableDifficultyLevels() {

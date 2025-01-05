@@ -11,7 +11,7 @@ interface ExerciseRepository extends Repository<ExerciseEntity, UUID> {
 
     Optional<ExerciseEntity> findByName(String name);
 
-    ExerciseEntity save(ExerciseEntity exerciseEntity);
+    ExerciseEntity save(ExerciseEntity entity);
 
     Optional<ExerciseEntity> findById(UUID id);
 

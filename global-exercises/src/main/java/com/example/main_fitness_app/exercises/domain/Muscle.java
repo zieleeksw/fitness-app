@@ -22,7 +22,6 @@ enum Muscle {
     ERECTOR_SPINAE,
 
     //LEGS
-
     QUADRICEPS,
     HAMSTRINGS,
     CALVES,
@@ -32,6 +31,5 @@ enum Muscle {
     ABDOMINALS,
     OBLIQUES,
     TRANSVERSUS_ABDOMINIS
-
 }
 
