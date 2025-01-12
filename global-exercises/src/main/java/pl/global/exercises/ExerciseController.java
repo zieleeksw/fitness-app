@@ -1,9 +1,9 @@
-package com.example.main_fitness_app.exercises;
+package pl.global.exercises;
 
 
-import com.example.main_fitness_app.exercises.domain.ExerciseFacade;
-import com.example.main_fitness_app.exercises.dto.ExerciseCandidate;
-import com.example.main_fitness_app.exercises.dto.ExerciseResponse;
+import pl.global.exercises.domain.ExerciseFacade;
+import pl.global.exercises.dto.ExerciseCandidate;
+import pl.global.exercises.dto.ExerciseResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

@@ -1,7 +1,7 @@
-package com.example.main_fitness_app.exercises.domain;
+package pl.global.exercises.domain;
 
-import com.example.main_fitness_app.exercises.dto.ExerciseCandidate;
-import com.example.main_fitness_app.exercises.dto.ExerciseResponse;
+import pl.global.exercises.dto.ExerciseCandidate;
+import pl.global.exercises.dto.ExerciseResponse;
 
 import java.util.*;
 import java.util.stream.Collectors;

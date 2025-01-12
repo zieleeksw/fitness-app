@@ -1,4 +1,4 @@
-package com.example.main_fitness_app.exercises.domain;
+package pl.global.exercises.domain;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;

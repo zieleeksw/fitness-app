@@ -1,4 +1,4 @@
-package com.example.main_fitness_app.exercises.domain;
+package pl.global.exercises.domain;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package com.example.main_fitness_app.exercises.dto;
+package pl.global.exercises.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
