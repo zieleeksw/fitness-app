@@ -1,6 +1,7 @@
 package pl.global.exercises;
 
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -24,6 +25,7 @@ class ExerciseController {
     }
 
     @PostMapping
+    @Transactional
     ResponseEntity<ExerciseResponse> add(
             @RequestBody @Valid ExerciseCandidate candidate) {
         ExerciseResponse exercise = facade.add(candidate);

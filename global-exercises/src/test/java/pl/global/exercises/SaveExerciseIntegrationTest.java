@@ -267,7 +267,7 @@ class SaveExerciseIntegrationTest extends BaseIntegration {
     void shouldReturnStatusOkOnValidInput() throws Exception {
         String candidateJson = """
                 {
-                    "name": "Push-up",
+                    "name": "Pull-up",
                     "instruction": "Basic push-up instructions",
                     "difficultyLevel": "BEGINNER",
                     "muscleUsages": [
@@ -281,12 +281,12 @@ class SaveExerciseIntegrationTest extends BaseIntegration {
                         .content(candidateJson))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.name").value("Push-up"))
+                .andExpect(jsonPath("$.name").value("Pull-up"))
                 .andExpect(jsonPath("$.instruction").value("Basic push-up instructions"))
                 .andExpect(jsonPath("$.difficultyLevel").value("BEGINNER"))
                 .andExpect(jsonPath("$.muscleUsages[0].muscle").value("TRICEPS"))
                 .andExpect(jsonPath("$.muscleUsages[0].intensity").value("MEDIUM"))
-                .andExpect(jsonPath("$.muscleUsages[0].muscle").value("PECTORAL_MAJOR"))
-                .andExpect(jsonPath("$.muscleUsages[0].intensity").value("HIGH"));
+                .andExpect(jsonPath("$.muscleUsages[1].muscle").value("PECTORAL_MAJOR"))
+                .andExpect(jsonPath("$.muscleUsages[1].intensity").value("HIGH"));
     }
 }
