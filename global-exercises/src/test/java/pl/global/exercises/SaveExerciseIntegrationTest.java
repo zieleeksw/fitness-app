@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class ExerciseIntegrationTest extends BaseIntegration {
+class SaveExerciseIntegrationTest extends BaseIntegration {
 
     @Test
     void shouldReturnBadRequestWhenNameIsMissing() throws Exception {
@@ -237,5 +237,56 @@ class ExerciseIntegrationTest extends BaseIntegration {
                         .content(candidateJson))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.muscleUsages").value("Must not be empty."));
+    }
+
+    @Test
+    void shouldReturnBadRequestOnAlreadyExistingExercise() throws Exception {
+        String candidateJson = """
+                {
+                    "name": "Push-up",
+                    "instruction": "Basic push-up instructions",
+                    "difficultyLevel": "BEGINNER",
+                    "muscleUsages": [
+                        {"muscle": "TRICEPS", "intensity": "MEDIUM"},
+                        {"muscle": "PECTORAL_MAJOR", "intensity": "HIGH"}
+                    ]
+                }
+                """;
+        mockMvc.perform(post("/api/vi/exercises")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(candidateJson));
+
+        mockMvc.perform(post("/api/vi/exercises")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(candidateJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").value("Exercise already exists"));
+    }
+
+    @Test
+    void shouldReturnStatusOkOnValidInput() throws Exception {
+        String candidateJson = """
+                {
+                    "name": "Push-up",
+                    "instruction": "Basic push-up instructions",
+                    "difficultyLevel": "BEGINNER",
+                    "muscleUsages": [
+                        {"muscle": "TRICEPS", "intensity": "MEDIUM"},
+                        {"muscle": "PECTORAL_MAJOR", "intensity": "HIGH"}
+                    ]
+                }
+                """;
+        mockMvc.perform(post("/api/vi/exercises")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(candidateJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.name").value("Push-up"))
+                .andExpect(jsonPath("$.instruction").value("Basic push-up instructions"))
+                .andExpect(jsonPath("$.difficultyLevel").value("BEGINNER"))
+                .andExpect(jsonPath("$.muscleUsages[0].muscle").value("TRICEPS"))
+                .andExpect(jsonPath("$.muscleUsages[0].intensity").value("MEDIUM"))
+                .andExpect(jsonPath("$.muscleUsages[0].muscle").value("PECTORAL_MAJOR"))
+                .andExpect(jsonPath("$.muscleUsages[0].intensity").value("HIGH"));
     }
 }
