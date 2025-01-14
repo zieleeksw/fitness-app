@@ -1,14 +1,14 @@
 package pl.global.exercises;
 
 
-import pl.global.exercises.domain.ExerciseFacade;
-import pl.global.exercises.dto.ExerciseCandidate;
-import pl.global.exercises.dto.ExerciseResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.global.exercises.domain.ExerciseFacade;
+import pl.global.exercises.dto.ExerciseCandidate;
+import pl.global.exercises.dto.ExerciseResponse;
 
 import java.util.Set;
 import java.util.UUID;
