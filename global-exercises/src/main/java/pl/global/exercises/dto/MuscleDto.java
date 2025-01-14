@@ -1,6 +1,6 @@
-package pl.global.exercises.domain;
+package pl.global.exercises.dto;
 
-enum Muscle {
+enum MuscleDto {
     //ARM
     BICEPS,
     TRICEPS,
@@ -32,4 +32,3 @@ enum Muscle {
     OBLIQUES,
     TRANSVERSUS_ABDOMINIS
 }
-

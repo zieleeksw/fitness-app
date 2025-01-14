@@ -1,16 +1,14 @@
 package pl.global.exercises.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
 public record ExerciseCandidate(
-        @NotBlank @Size(max = 64) String name,
-        @NotBlank @Size(max = 128) String instruction,
-        // TODO: // Add an enum validator before integration tests
-        @NotBlank String difficultyLevel,
-        @NotEmpty Set<MuscleUsageDto> muscleUsages
+        @ValidName String name,
+        @ValidInstruction String instruction,
+        @ValidEnum(enumClazz = DifficultyLevelDto.class) String difficultyLevel,
+        @NotEmpty(message = "Must not be empty.") @Valid Set<MuscleUsageDto> muscleUsages
 ) {
 }

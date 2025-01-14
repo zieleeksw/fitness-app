@@ -7,7 +7,7 @@ public record ExerciseResponse(
         UUID id,
         String name,
         String instruction,
-        String difficultyLevel,
+        DifficultyLevelDto difficultyLevel,
         Set<MuscleUsageDto> muscleUsages
 ) {
 

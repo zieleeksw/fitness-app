@@ -1,9 +1,10 @@
 package pl.global.exercises.domain;
 
+import org.junit.jupiter.api.Test;
+import pl.global.exercises.dto.DifficultyLevelDto;
 import pl.global.exercises.dto.ExerciseCandidate;
 import pl.global.exercises.dto.ExerciseResponse;
 import pl.global.exercises.dto.MuscleUsageDto;
-import org.junit.jupiter.api.Test;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ class ExerciseFacadeTest {
         assertNotNull(response);
         assertNotNull(response.id());
         assertEquals("Push-up", response.name());
-        assertEquals(DifficultyLevel.BEGINNER, DifficultyLevel.valueOf(response.difficultyLevel()));
+        assertEquals(DifficultyLevelDto.BEGINNER, response.difficultyLevel());
         assertEquals("Basic push-up instructions", response.instruction());
         assertTrue(response.muscleUsages().contains(new MuscleUsageDto("PECTORAL_MAJOR", "HIGH")));
         assertTrue(response.muscleUsages().contains(new MuscleUsageDto("TRICEPS", "MEDIUM")));
@@ -91,9 +92,24 @@ class ExerciseFacadeTest {
                 new MuscleUsageDto("TRICEPS", "MEDIUM")
         );
 
-        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER", muscleUsages));
-        facade.add(new ExerciseCandidate("Pull-up", "Perform a pull-up", "INTERMEDIATE", muscleUsages));
-        facade.add(new ExerciseCandidate("Squat", "Perform a proper squat", "ADVANCED", muscleUsages));
+        facade.add(new ExerciseCandidate(
+                "Push-up",
+                "Basic push-up instructions",
+                "BEGINNER",
+                muscleUsages)
+        );
+        facade.add(new ExerciseCandidate(
+                "Pull-up",
+                "Perform a pull-up",
+                "INTERMEDIATE",
+                muscleUsages)
+        );
+        facade.add(new ExerciseCandidate(
+                "Squat",
+                "Perform a proper squat",
+                "ADVANCED",
+                muscleUsages)
+        );
 
         Set<ExerciseResponse> results = facade.findByNameContaining("up");
 
@@ -109,8 +125,18 @@ class ExerciseFacadeTest {
                 new MuscleUsageDto("PECTORAL_MAJOR", "HIGH")
         );
 
-        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER", muscleUsages));
-        facade.add(new ExerciseCandidate("Pull-up", "Perform a pull-up", "INTERMEDIATE", muscleUsages));
+        facade.add(new ExerciseCandidate(
+                "Push-up",
+                "Basic push-up instructions",
+                "BEGINNER",
+                muscleUsages)
+        );
+        facade.add(new ExerciseCandidate(
+                "Pull-up",
+                "Perform a pull-up",
+                "INTERMEDIATE",
+                muscleUsages)
+        );
 
         Set<ExerciseResponse> results = facade.findByNameContaining("Squat");
 
@@ -123,7 +149,12 @@ class ExerciseFacadeTest {
                 new MuscleUsageDto("PECTORAL_MAJOR", "HIGH")
         );
 
-        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER", muscleUsages));
+        facade.add(new ExerciseCandidate(
+                "Push-up",
+                "Basic push-up instructions",
+                "BEGINNER",
+                muscleUsages)
+        );
 
         Set<ExerciseResponse> results = facade.findByNameContaining("push");
 
@@ -137,7 +168,12 @@ class ExerciseFacadeTest {
                 new MuscleUsageDto("PECTORAL_MAJOR", "HIGH")
         );
 
-        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER", muscleUsages));
+        facade.add(new ExerciseCandidate(
+                "Push-up",
+                "Basic push-up instructions",
+                "BEGINNER",
+                muscleUsages)
+        );
 
         Set<ExerciseResponse> results = facade.findAll();
 
@@ -150,9 +186,24 @@ class ExerciseFacadeTest {
         Set<MuscleUsageDto> muscleUsages = Set.of(
                 new MuscleUsageDto("PECTORAL_MAJOR", "HIGH")
         );
-        facade.add(new ExerciseCandidate("Push-up", "Basic push-up instructions", "BEGINNER", muscleUsages));
-        facade.add(new ExerciseCandidate("Pull-up", "Perform a pull-up", "INTERMEDIATE", muscleUsages));
-        facade.add(new ExerciseCandidate("Squat", "Perform a proper squat", "ADVANCED", muscleUsages));
+        facade.add(new ExerciseCandidate(
+                "Push-up",
+                "Basic push-up instructions",
+                "BEGINNER",
+                muscleUsages)
+        );
+        facade.add(new ExerciseCandidate(
+                "Pull-up",
+                "Perform a pull-up",
+                "INTERMEDIATE",
+                muscleUsages)
+        );
+        facade.add(new ExerciseCandidate(
+                "Squat",
+                "Perform a proper squat",
+                "ADVANCED",
+                muscleUsages)
+        );
 
         ExerciseResponse randomExercise = facade.findRandomExercise();
 
@@ -225,24 +276,24 @@ class ExerciseFacadeTest {
         Set<String> availableMuscles = facade.findAvailableMuscles();
 
         assertEquals(EnumSet.allOf(Muscle.class).size(), availableMuscles.size());
-        assertTrue(availableMuscles.contains("BICEPS"), "Zbiór nie zawiera mięśnia BICEPS");
-        assertTrue(availableMuscles.contains("TRICEPS"), "Zbiór nie zawiera mięśnia TRICEPS");
-        assertTrue(availableMuscles.contains("FOREARM"), "Zbiór nie zawiera mięśnia FOREARM");
-        assertTrue(availableMuscles.contains("DELTOID_FRONT"), "Zbiór nie zawiera mięśnia DELTOID_FRONT");
-        assertTrue(availableMuscles.contains("DELTOID_SIDE"), "Zbiór nie zawiera mięśnia DELTOID_SIDE");
-        assertTrue(availableMuscles.contains("DELTOID_REAR"), "Zbiór nie zawiera mięśnia DELTOID_REAR");
-        assertTrue(availableMuscles.contains("PECTORAL_MAJOR"), "Zbiór nie zawiera mięśnia PECTORAL_MAJOR");
-        assertTrue(availableMuscles.contains("PECTORAL_MINOR"), "Zbiór nie zawiera mięśnia PECTORAL_MINOR");
-        assertTrue(availableMuscles.contains("LATS"), "Zbiór nie zawiera mięśnia LATS");
-        assertTrue(availableMuscles.contains("TRAPEZIUS"), "Zbiór nie zawiera mięśnia TRAPEZIUS");
-        assertTrue(availableMuscles.contains("RHOMBOIDS"), "Zbiór nie zawiera mięśnia RHOMBOIDS");
-        assertTrue(availableMuscles.contains("ERECTOR_SPINAE"), "Zbiór nie zawiera mięśnia ERECTOR_SPINAE");
-        assertTrue(availableMuscles.contains("QUADRICEPS"), "Zbiór nie zawiera mięśnia QUADRICEPS");
-        assertTrue(availableMuscles.contains("HAMSTRINGS"), "Zbiór nie zawiera mięśnia HAMSTRINGS");
-        assertTrue(availableMuscles.contains("CALVES"), "Zbiór nie zawiera mięśnia CALVES");
-        assertTrue(availableMuscles.contains("GLUTES"), "Zbiór nie zawiera mięśnia GLUTES");
-        assertTrue(availableMuscles.contains("ABDOMINALS"), "Zbiór nie zawiera mięśnia ABDOMINALS");
-        assertTrue(availableMuscles.contains("OBLIQUES"), "Zbiór nie zawiera mięśnia OBLIQUES");
+        assertTrue(availableMuscles.contains("BICEPS"));
+        assertTrue(availableMuscles.contains("TRICEPS"));
+        assertTrue(availableMuscles.contains("FOREARM"));
+        assertTrue(availableMuscles.contains("DELTOID_FRONT"));
+        assertTrue(availableMuscles.contains("DELTOID_SIDE"));
+        assertTrue(availableMuscles.contains("DELTOID_REAR"));
+        assertTrue(availableMuscles.contains("PECTORAL_MAJOR"));
+        assertTrue(availableMuscles.contains("PECTORAL_MINOR"));
+        assertTrue(availableMuscles.contains("LATS"));
+        assertTrue(availableMuscles.contains("TRAPEZIUS"));
+        assertTrue(availableMuscles.contains("RHOMBOIDS"));
+        assertTrue(availableMuscles.contains("ERECTOR_SPINAE"));
+        assertTrue(availableMuscles.contains("QUADRICEPS"));
+        assertTrue(availableMuscles.contains("HAMSTRINGS"));
+        assertTrue(availableMuscles.contains("CALVES"));
+        assertTrue(availableMuscles.contains("GLUTES"));
+        assertTrue(availableMuscles.contains("ABDOMINALS"));
+        assertTrue(availableMuscles.contains("OBLIQUES"));
     }
 
     @Test

@@ -1,9 +1,10 @@
 package pl.global.exercises.domain;
 
+import jakarta.persistence.*;
+import pl.global.exercises.dto.DifficultyLevelDto;
 import pl.global.exercises.dto.ExerciseCandidate;
 import pl.global.exercises.dto.ExerciseResponse;
 import pl.global.exercises.dto.MuscleUsageDto;
-import jakarta.persistence.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -53,7 +54,7 @@ class ExerciseEntity {
         return new ExerciseEntity(
                 candidate.name(),
                 candidate.instruction(),
-                DifficultyLevel.valueOf(candidate.difficultyLevel()),
+                DifficultyLevel.valueOf(String.valueOf(candidate.difficultyLevel())),
                 muscleUsages
         );
     }
@@ -91,7 +92,7 @@ class ExerciseEntity {
                 this.id,
                 this.name,
                 this.instruction,
-                this.difficultyLevel.name(),
+                DifficultyLevelDto.valueOf(this.difficultyLevel.name()),
                 muscleUsageDto
         );
     }
