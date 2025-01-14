@@ -9,6 +9,6 @@ public record ExerciseCandidate(
         @ValidName String name,
         @ValidInstruction String instruction,
         @ValidEnum(enumClazz = DifficultyLevelDto.class) String difficultyLevel,
-        @NotEmpty(message = "Must not be empty.") @Valid Set<MuscleUsageDto> muscleUsages
+        @NotEmpty(message = "Must not be empty.") @UniqueMuscle @Valid Set<MuscleUsageDto> muscleUsages
 ) {
 }

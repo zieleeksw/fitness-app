@@ -264,6 +264,27 @@ class SaveExerciseIntegrationTest extends BaseIntegration {
     }
 
     @Test
+    void shouldReturnBadRequestOnDuplicatedMuscleFound() throws Exception {
+        String candidateJson = """
+                {
+                    "name": "Pull-up",
+                    "instruction": "Basic push-up instructions",
+                    "difficultyLevel": "BEGINNER",
+                    "muscleUsages": [
+                        {"muscle": "TRICEPS", "intensity": "MEDIUM"},
+                        {"muscle": "TRICEPS", "intensity": "HIGH"}
+                    ]
+                }
+                """;
+
+        mockMvc.perform(post("/api/vi/exercises")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(candidateJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.muscleUsages").value("Duplicate muscles detected: TRICEPS"));
+    }
+
+    @Test
     void shouldReturnStatusOkOnValidInput() throws Exception {
         String candidateJson = """
                 {
@@ -276,6 +297,7 @@ class SaveExerciseIntegrationTest extends BaseIntegration {
                     ]
                 }
                 """;
+
         mockMvc.perform(post("/api/vi/exercises")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(candidateJson))
