@@ -1,10 +1,12 @@
 package pl.global.exercises;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -13,6 +15,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.global.GlobalExercisesApplication;
+import pl.global.exercises.domain.ExerciseFacade;
 
 @SpringBootTest(
         classes = GlobalExercisesApplication.class,
@@ -21,6 +24,8 @@ import pl.global.GlobalExercisesApplication;
 @Testcontainers
 @AutoConfigureMockMvc
 @ActiveProfiles("integration")
+@Transactional
+@DirtiesContext
 class BaseIntegration {
 
     @Container
@@ -31,6 +36,9 @@ class BaseIntegration {
 
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    ExerciseFacade facade;
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {

@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.global.exercises.domain.ExerciseFacade;
@@ -26,17 +27,17 @@ class ExerciseController {
 
     @PostMapping
     @Transactional
-    ResponseEntity<ExerciseResponse> add(
+    @ResponseStatus(HttpStatus.CREATED)
+    ExerciseResponse add(
             @RequestBody @Valid ExerciseCandidate candidate) {
-        ExerciseResponse exercise = facade.add(candidate);
-        return ResponseEntity.ok(exercise);
+        return facade.add(candidate);
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteById(
-            @PathVariable @NotBlank UUID id) {
+    @Transactional
+    void deleteById(
+            @PathVariable UUID id) {
         facade.deleteById(id);
-        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/search")

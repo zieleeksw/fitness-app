@@ -301,7 +301,7 @@ class SaveExerciseIntegrationTest extends BaseIntegration {
         mockMvc.perform(post("/api/vi/exercises")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(candidateJson))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.name").value("Pull-up"))
                 .andExpect(jsonPath("$.instruction").value("Basic push-up instructions"))
