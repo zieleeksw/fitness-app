@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.global.exercises.domain.ExerciseFacade;
 import pl.global.exercises.dto.ExerciseCandidate;
@@ -57,20 +56,17 @@ class ExerciseController {
     }
 
     @GetMapping("/difficulty-levels")
-    ResponseEntity<Set<String>> findAvailableDifficultyLevels() {
-        Set<String> difficultyLevels = facade.findAvailableDifficultyLevels();
-        return ResponseEntity.ok(difficultyLevels);
+    Set<String> findAvailableDifficultyLevels() {
+        return facade.findAvailableDifficultyLevels();
     }
 
     @GetMapping("/muscles")
-    ResponseEntity<Set<String>> findAvailableMuscles() {
-        Set<String> difficultyLevels = facade.findAvailableMuscles();
-        return ResponseEntity.ok(difficultyLevels);
+    Set<String> findAvailableMuscles() {
+        return facade.findAvailableMuscles();
     }
 
     @GetMapping("/intensities")
-    ResponseEntity<Set<String>> findAvailableIntensities() {
-        Set<String> difficultyLevels = facade.findAvailableIntensities();
-        return ResponseEntity.ok(difficultyLevels);
+    Set<String> findAvailableIntensities() {
+        return facade.findAvailableIntensities();
     }
 }
