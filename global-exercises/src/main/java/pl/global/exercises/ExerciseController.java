@@ -41,16 +41,14 @@ class ExerciseController {
     }
 
     @GetMapping("/search")
-    ResponseEntity<Set<ExerciseResponse>> findByNameContaining(
+    Set<ExerciseResponse> findByNameContaining(
             @RequestParam @NotBlank @Size(max = 64) String name) {
-        Set<ExerciseResponse> exercises = facade.findByNameContaining(name);
-        return ResponseEntity.ok(exercises);
+        return facade.findByNameContaining(name);
     }
 
     @GetMapping
-    ResponseEntity<Set<ExerciseResponse>> findAll() {
-        Set<ExerciseResponse> exercises = facade.findAll();
-        return ResponseEntity.ok(exercises);
+    Set<ExerciseResponse> findAll() {
+        return facade.findAll();
     }
 
     @GetMapping("/random")
