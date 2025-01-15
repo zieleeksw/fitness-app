@@ -2,7 +2,6 @@ package pl.global.exercises;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import pl.global.exercises.dto.ExerciseCandidate;
 import pl.global.exercises.dto.ExerciseResponse;
 import pl.global.exercises.dto.MuscleUsageDto;

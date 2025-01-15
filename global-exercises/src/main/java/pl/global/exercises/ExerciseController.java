@@ -42,7 +42,7 @@ class ExerciseController {
 
     @GetMapping("/search")
     ResponseEntity<Set<ExerciseResponse>> findByNameContaining(
-            @RequestParam @NotBlank @Size(max = 10) String name) {
+            @RequestParam @NotBlank @Size(max = 64) String name) {
         Set<ExerciseResponse> exercises = facade.findByNameContaining(name);
         return ResponseEntity.ok(exercises);
     }
