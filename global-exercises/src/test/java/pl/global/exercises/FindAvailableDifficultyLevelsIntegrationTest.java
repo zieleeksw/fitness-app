@@ -12,7 +12,6 @@ class FindAvailableDifficultyLevelsIntegrationTest extends BaseIntegration {
 
     @Test
     void shouldReturnAllDifficultyLevels() throws Exception {
-
         mockMvc.perform(get("/api/vi/exercises/difficulty-levels")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
